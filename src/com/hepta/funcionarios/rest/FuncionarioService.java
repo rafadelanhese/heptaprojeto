@@ -80,15 +80,31 @@ public class FuncionarioService {
 	 * Atualiza um Funcionario
 	 * 
 	 * @param id:          id do Funcionario
-	 * @param Funcionario: Funcionario atualizado
+	 * @param funcionario: Funcionario atualizado
 	 * @return response 200 (OK) - Conseguiu atualizar
 	 */
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@PUT
-	public Response FuncionarioUpdate(@PathParam("id") Integer id, Funcionario Funcionario) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+	public Response FuncionarioUpdate(@PathParam("id") Integer id, Funcionario funcionario) {
+		try{
+			Funcionario funcAtualizar = dao.find(id);
+			if(funcAtualizar == null)
+				return Response.status(Status.NOT_FOUND).entity("Não achou funcionário").build();
+			else{			
+				funcAtualizar = dao.save(new Funcionario(funcAtualizar.getId(), 
+															funcionario.getNome(),
+															funcionario.getSetor(),
+															funcionario.getSalario(),
+															funcionario.getEmail(),
+															funcionario.getIdade()));
+
+				return Response.status(Status.OK).entity(funcAtualizar).build();
+			}		
+		}catch(Exception e){
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao atualizar funcionário").build();
+		}
 	}
 
 	/**
