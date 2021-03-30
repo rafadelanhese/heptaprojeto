@@ -51,8 +51,13 @@ public class FuncionarioService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
-	public Response FuncionarioCreate(Funcionario Funcionario) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+	public Response FuncionarioCreate(Funcionario funcionario) {
+		try{
+			dao.save(funcionario);
+			return Response.status(Status.OK).build();
+		}catch(Exception e){
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao inserir funcionário").build();
+		}		
 	}
 
 	/**
@@ -93,7 +98,7 @@ public class FuncionarioService {
 			if(funcAtualizar == null)
 				return Response.status(Status.NOT_FOUND).entity("Não achou funcionário").build();
 			else{			
-				funcAtualizar = dao.save(new Funcionario(funcAtualizar.getId(), 
+				funcAtualizar = dao.update(new Funcionario(funcAtualizar.getId(), 
 															funcionario.getNome(),
 															funcionario.getSetor(),
 															funcionario.getSalario(),
@@ -119,7 +124,7 @@ public class FuncionarioService {
 	public Response FuncionarioDelete(@PathParam("id") Integer id) {
 		try{
 			dao.delete(id);
-			Response.status(Status.OK).build();
+			return Response.status(Status.OK).build();
 		}catch(Exception e){
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao deletar funcionário").build();
 		}		
