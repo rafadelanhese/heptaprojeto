@@ -10,11 +10,11 @@ import com.hepta.funcionarios.entity.Funcionario;
 
 public class FuncionarioDAO {
 
-	public void save(Funcionario Funcionario) throws Exception {
+	public void save(Funcionario funcionario) throws Exception {
 		EntityManager em = HibernateUtil.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(Funcionario);
+			em.persist(funcionario);
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
@@ -24,12 +24,12 @@ public class FuncionarioDAO {
 		}
 	}
 
-	public Funcionario update(Funcionario Funcionario) throws Exception {
+	public Funcionario update(Funcionario funcionario) throws Exception {
 		EntityManager em = HibernateUtil.getEntityManager();
-		Funcionario FuncionarioAtualizado = null;
+		Funcionario funcionarioAtualizado = null;
 		try {
 			em.getTransaction().begin();
-			FuncionarioAtualizado = em.merge(Funcionario);
+			funcionarioAtualizado = em.merge(funcionario);
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
@@ -37,15 +37,15 @@ public class FuncionarioDAO {
 		} finally {
 			em.close();
 		}
-		return FuncionarioAtualizado;
+		return funcionarioAtualizado;
 	}
 
 	public void delete(Integer id) throws Exception {
 		EntityManager em = HibernateUtil.getEntityManager();
 		try {
 			em.getTransaction().begin();
-			Funcionario Funcionario = em.find(Funcionario.class, id);
-			em.remove(Funcionario);
+			Funcionario funcionario = em.find(Funcionario.class, id);
+			em.remove(funcionario);
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
@@ -58,32 +58,32 @@ public class FuncionarioDAO {
 
 	public Funcionario find(Integer id) throws Exception {
 		EntityManager em = HibernateUtil.getEntityManager();
-		Funcionario Funcionario = null;
+		Funcionario funcionario = null;
 		try {
-			Funcionario = em.find(Funcionario.class, id);
+			funcionario = em.find(Funcionario.class, id);
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			throw new Exception(e);
 		} finally {
 			em.close();
 		}
-		return Funcionario;
+		return funcionario;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Funcionario> getAll() throws Exception {
 		EntityManager em = HibernateUtil.getEntityManager();
-		List<Funcionario> Funcionarios = new ArrayList<>();
+		List<Funcionario> funcionarios = new ArrayList<>();
 		try {
-			Query query = em.createQuery("FROM Funcionario");
-			Funcionarios = query.getResultList();
+			Query query = em.createQuery("select from Funcionario");
+			funcionarios = query.getResultList();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			throw new Exception(e);
 		} finally {
 			em.close();
 		}
-		return Funcionarios;
+		return funcionarios;
 	}
 
 }
