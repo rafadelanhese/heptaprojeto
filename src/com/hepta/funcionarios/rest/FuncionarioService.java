@@ -51,8 +51,13 @@ public class FuncionarioService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
-	public Response FuncionarioCreate(Funcionario Funcionario) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+	public Response FuncionarioCreate(Funcionario funcionario) {
+		try{
+			dao.save(funcionario);
+			return Response.status(Status.OK).build();
+		}catch(Exception e){
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao inserir funcionário").build();
+		}		
 	}
 
 	/**
