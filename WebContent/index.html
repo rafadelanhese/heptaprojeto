@@ -2,47 +2,45 @@
 <html>
 
 <head>
-<meta charset="utf-8">
-<link rel="shortcut icon" href="favicon.ico"/>
-<title>Funcionários - Início</title>
-<link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap-vue.css">
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="favicon.ico" />
+	<title>Funcionários - Início</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap-vue.css">
 </head>
 
 <body>
-
-
-	<div id="inicio" class="container-fluid table" >
-		<h4>Lista dos Funcionários</h4>
+	<div id="inicio" class="container-fluid table">
+		<h4>Lista dos Funcionários | <a href="pages/novo-funcionario.html" class="btn btn-info">Novo Funcionário</a></h4>
 		<table>
-		  <tr>
-			<th>Nome</th>
-			<th>Setor</th>
-			<th>Salário</th>
-			<th>Email</th>
-			<th>Idade</th>
-			<th></th>
-			<th></th>
-		  </tr>
-		  <tbody id="event-table" >
-			<tr v-for="funcionario in listaProdutos">
-			  <td>{{ funcionario.nome }}</td> 
-			  <td>{{ funcionario.setor.nome }}</td> 
-			  <td>{{ funcionario.salario }}</td> 
-			  <td>{{ funcionario.email }}</td> 
-			  <td>{{ funcionario.idade }}</td>
-			  <td><span @click="">&#9998;</span>
-				<span  @click="">&#10006;</span>
-			  </td>
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>Setor</th>
+				<th>Salário</th>
+				<th>Email</th>
+				<th>Idade</th>
+				<th>Editar</th>
+				<th>Excluir</th>
 			</tr>
-		  </tbody>
+			<tbody id="event-table">
+				<tr v-for="funcionario in listaFuncionarios">
+					<td>{{ funcionario.id }}</td>
+					<td>{{ funcionario.nome }}</td>
+					<td>{{ funcionario.setor.nome }}</td>
+					<td>{{ funcionario.salario }}</td>
+					<td>{{ funcionario.email }}</td>
+					<td>{{ funcionario.idade }}</td>
+					<td><span @click="">&#9998;</span></td>
+					<td><span  @click="">&#10006;</span></td>
+				</tr>
+			</tbody>
 		</table>
-	  </div>
+	</div>
 
 	<script src="resources/js/vue.js"></script>
 	<script src="resources/js/axios.min.js"></script>
 	<script src="resources/js/index.js"></script>
 </body>
+
 </html>

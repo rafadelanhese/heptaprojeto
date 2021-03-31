@@ -1,24 +1,25 @@
-var inicio = new Vue({
+var app = new Vue({
 	el:"#inicio",
     data: {
-        listaProdutos: [],
-        listaProdutosHeader: [
-			{sortable: false, key: "nome", label:"Nome"},
-			{sortable: false, key: "fabricante.nome", label:"Fabricante"},
-			{sortable: false, key: "volume", label:"Volume"},
-			{sortable: false, key: "unidade", label:"Unidade"},
-			{sortable: false, key: "estoque", label:"Estoque"}
+        listaFuncionarios: [],
+        listaFuncionariosHeader: [
+			{sortable: false, key: "funcionario.id", label:"ID"},
+			{sortable: false, key: "funcionario.nome", label:"Nome"},
+            {sortable: false, key: "funcionario.setor.nome", label:"Setor"},
+            {sortable: false, key: "funcionario.salario", label:"Salário"},
+            {sortable: false, key: "funcionario.email", label:"Email"},
+            {sortable: false, key: "funcionario.idade", label:"Idade"}
 		]
     },
     created: function(){
         let vm =  this;
-        vm.buscaProdutos();
+        vm.buscaTodosFuncionarios();
     },
     methods:{
-        buscaProdutos: function(){
+        buscaTodosFuncionarios: function(){
 			const vm = this;
 			axios.get("/funcionarios/rs/funcionarios")
-			.then(response => {vm.listaProdutos = response.data;
+			.then(response => {vm.listaFuncionarios = response.data;
 			}).catch(function (error) {
 				vm.mostraAlertaErro("Erro interno", "Não foi listar natureza de serviços");
 			}).finally(function() {

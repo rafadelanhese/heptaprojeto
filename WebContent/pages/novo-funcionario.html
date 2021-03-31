@@ -6,46 +6,47 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 	<title>Cadastrar um novo Funcionário </title>
 	<link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../resources/css/main.css">
+	<link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-vue.css">
 </head>
 
 <body>
 	<div id="app" class="container-fluid table" >
-		<a href="../index.html" class="btn btn-info">Voltar</a>
-		<p>{{mensagem}}</p>
+		<a href="../index.html" class="btn btn-info">Voltar</a>		
 
 		<h4>Cadastro de funcionário</h4>
 
-		<form method="POST" action="/funcionarios">
+		<form v-on:submit.prevent="enviaFormulario" v-bind="post">
 			<div class="form-group">
 				<label>Nome</label>
-				<input type="text" class="form-control" id="funcionário.nome" placeholder="Insira o nome">				
+				<input type="text" class="form-control" id="nome" v-model="funcionario.nome" placeholder="Insira o nome">				
 			</div>
 			<div class="form-group">
 				<label>Idade</label>
-				<input type="text" class="form-control" id="funcionário.idade" placeholder="Insira a idade">				
+				<input type="text" class="form-control" id="idade" v-model="funcionario.idade" placeholder="Insira a idade">				
 			</div>
 			<div class="form-group">
 				<label>Salário</label>
-				<input type="text" class="form-control" id="funcionário.salario" placeholder="Insira o salário">				
+				<input type="text" class="form-control" id="salario" v-model="funcionario.salario" placeholder="Insira o salário">				
 			</div>
 			<div class="form-group">
 				<label>Email</label>
-				<input type="email" class="form-control" id="funcionário.email" aria-describedby="emailHelp" placeholder="Enter email">				
+				<input type="email" class="form-control" id="email" v-model="funcionario.email" aria-describedby="emailHelp" placeholder="Enter email">				
 			</div>	
 			<div class="form-group">
 				<label>Setor</label>
 				<select class="form-control" id="funcionario.setor">
-				  <option v-for="setor in listaSetores" value="setor.id">{{ setor.nome }}</option>			
+					<option v-for="setor in listaSetores" v-bind:value="setor">{{ setor.nome }}</option>			
 				</select>
-			  </div>					
-			<button type="submit" class="btn btn-primary">Cadastrar</button>
+			  </div>
+			  <div class="form-group">
+				<button type="submit" class="btn btn-primary">Cadastrar</button>
+			  </div>										
 		</form>
 	</div>
 
-	<script src="resources/js/vue.js"></script>
-	<script src="resources/js/axios.min.js"></script>
-	<script src="resources/js/cadastro-de-funcionario.js"></script>
+	<script src="../resources/js/vue.js"></script>
+	<script src="../resources/js/axios.min.js"></script>
+	<script src="../resources/js/cadastro-de-funcionario.js"></script>
 </body>
 
 </html>
