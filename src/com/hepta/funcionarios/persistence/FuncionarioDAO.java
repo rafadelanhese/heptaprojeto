@@ -74,8 +74,8 @@ public class FuncionarioDAO {
 	public List<Funcionario> getAll() throws Exception {
 		EntityManager em = HibernateUtil.getEntityManager();
 		List<Funcionario> funcionarios = new ArrayList<>();
-		try {
-			Query query = em.createQuery("select from Funcionario");
+		try {			
+			Query query = em.createQuery("FROM Funcionario");
 			funcionarios = query.getResultList();
 		} catch (Exception e) {
 			em.getTransaction().rollback();
