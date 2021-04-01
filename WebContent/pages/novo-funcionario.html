@@ -10,40 +10,83 @@
 </head>
 
 <body>
-	<div id="app" class="container-fluid table" >
-		<a href="../index.html" class="btn btn-info">Voltar</a>		
+	<div id="app" class="container-fluid table">
+		<div class="panel-heading">Cadastro de Funcionário</div>
 
-		<h4>Cadastro de funcionário</h4>
-
-		<form v-on:submit.prevent="enviaFormulario" v-bind="post">
+		<form @submit="enviarFormulario">
+			<div v-if="errors.length" class="alert alert-danger" role="alert">
+				<p>
+					<b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
+				</p>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" id="id" v-model="funcionario.id" style="display: none;"
+					readonly>
+			</div>
 			<div class="form-group">
 				<label>Nome</label>
-				<input type="text" class="form-control" id="nome" v-model="funcionario.nome" placeholder="Insira o nome">				
+				<input type="text" class="form-control" id="nome" v-model="funcionario.nome"
+					placeholder="Insira o nome">
 			</div>
 			<div class="form-group">
 				<label>Idade</label>
-				<input type="text" class="form-control" id="idade" v-model="funcionario.idade" placeholder="Insira a idade">				
+				<input type="number" min="0" class="form-control" id="idade" v-model="funcionario.idade"
+					placeholder="Insira a idade">
 			</div>
 			<div class="form-group">
 				<label>Salário</label>
-				<input type="text" class="form-control" id="salario" v-model="funcionario.salario" placeholder="Insira o salário">				
+				<input type="number" min="0" class="form-control" id="salario" v-model="funcionario.salario"
+					placeholder="Insira o salário">
 			</div>
 			<div class="form-group">
 				<label>Email</label>
-				<input type="email" class="form-control" id="email" v-model="funcionario.email" aria-describedby="emailHelp" placeholder="Enter email">				
-			</div>	
+				<input type="email" class="form-control" id="email" v-model="funcionario.email"
+					aria-describedby="emailHelp" placeholder="Enter email">
+			</div>
 			<div class="form-group">
 				<label>Setor</label>
-				<select class="form-control" id="funcionario.setor">
-					<option v-for="setor in listaSetores" v-bind:value="setor">{{ setor.nome }}</option>			
+				<select class="form-control" v-model="funcionario.setor">
+					<option v-for="setor in listaSetores" v-bind:value="setor">{{ setor.nome }}</option>
 				</select>
-			  </div>
-			  <div class="form-group">
+			</div>
+			<div class="form-group">
 				<button type="submit" class="btn btn-primary">Cadastrar</button>
-			  </div>										
+			</div>
 		</form>
-	</div>
 
+		<div class="panel-footer"><a href="../index.html" class="btn btn-info">Voltar</a></div>
+		<table class="table">
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>Setor</th>
+				<th>Salário</th>
+				<th>Email</th>
+				<th>Idade</th>
+				<th>Editar</th>
+				<th>Excluir</th>
+			</tr>
+			<tbody id="event-table">
+				<tr v-for="funcionario in listaFuncionarios">
+					<td>{{ funcionario.id }}</td>
+					<td>{{ funcionario.nome }}</td>
+					<td>{{ funcionario.setor.nome }}</td>
+					<td>{{ funcionario.salario }}</td>
+					<td>{{ funcionario.email }}</td>
+					<td>{{ funcionario.idade }}</td>
+					<td>
+					<td><button @click="editarFuncionario(funcionario)"
+							class="waves-effect btn-small blue darken-1"><span>&#9998;</span></button></td>
+					</td>
+					<td><button style="border-color: red;"
+							@click="deletarFuncionario(funcionario.id)"><span>&#10006;</span></button></td>
+				</tr>
+			</tbody>
+		</table>		
+	</div>
 	<script src="../resources/js/vue.js"></script>
 	<script src="../resources/js/axios.min.js"></script>
 	<script src="../resources/js/cadastro-de-funcionario.js"></script>
