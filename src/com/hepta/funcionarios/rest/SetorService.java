@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -51,7 +52,7 @@ public class SetorService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
-	public Response SetorCreate(Setor setor) {
+	public Response SetorCreate(@Valid Setor setor) {
 		try{
 			dao.save(setor);
 			return Response.status(Status.OK).build();
@@ -92,7 +93,7 @@ public class SetorService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@PUT
-	public Response SetorUpdate(@PathParam("id") Integer id, Setor setor) {
+	public Response SetorUpdate(@Valid @PathParam("id") Integer id, Setor setor) {
 		try{
 			Setor setorAtualizar = dao.find(id);
 			if(setorAtualizar == null)
