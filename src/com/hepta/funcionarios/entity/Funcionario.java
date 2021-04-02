@@ -1,7 +1,6 @@
 package com.hepta.funcionarios.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,103 +8,118 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Funcionario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_FUNCIONARIO")
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_FUNCIONARIO")
+  private Integer id;
 
-	@Column(name = "NOME")
-	private String nome;
+  @NotNull(message = "Nome não pode ser nulo")
+  @Column(name = "NOME")
+  private String nome;
 
-	@ManyToOne
-	@JoinColumn(name = "FK_SETOR")
-	private Setor setor;
+  @ManyToOne
+  @JoinColumn(name = "FK_SETOR")
+  private Setor setor;
 
-	@Column(name = "NU_SALARIO")
-	private Double salario;
+  @Size(min = 0, message = "Salário deve ser no mínimo: {min}")
+  @NotNull(message = "Salário não pode ser nulo")
+  @Column(name = "NU_SALARIO")
+  private Double salario;
 
-	@Column(name = "DS_EMAIL")
-	private String email;
+  @NotNull(message = "Email não pode ser nulo")
+  @Column(name = "DS_EMAIL")
+  private String email;
 
-	@Column(name = "NU_IDADE")
-	private Integer idade;
+  @Size(min = 0, max = 110, message = "Idade deve ter entre {min} e {max}")
+  @NotNull(message = "Idade não pode ser nulo")
+  @Column(name = "NU_IDADE")
+  private Integer idade;
 
+  public Funcionario() {}
 
-	public Funcionario() {
-	}
+  public Funcionario(
+    Integer id,
+    String nome,
+    Setor setor,
+    Double salario,
+    String email,
+    Integer idade
+  ) {
+    this.id = id;
+    this.nome = nome;
+    this.setor = setor;
+    this.salario = salario;
+    this.email = email;
+    this.idade = idade;
+  }
 
+  public Funcionario(
+    String nome,
+    Setor setor,
+    Double salario,
+    String email,
+    Integer idade
+  ) {
+    this.nome = nome;
+    this.setor = setor;
+    this.salario = salario;
+    this.email = email;
+    this.idade = idade;
+  }
 
-	public Funcionario(Integer id, String nome, Setor setor, Double salario, String email, Integer idade) {
-		this.id = id;
-		this.nome = nome;
-		this.setor = setor;
-		this.salario = salario;
-		this.email = email;
-		this.idade = idade;
-	}
+  public Integer getId() {
+    return id;
+  }
 
-	public Funcionario(String nome, Setor setor, Double salario, String email, Integer idade) {		
-		this.nome = nome;
-		this.setor = setor;
-		this.salario = salario;
-		this.email = email;
-		this.idade = idade;
-	}
-	
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
+  public String getNome() {
+    return nome;
+  }
 
-	public Integer getId() {
-		return id;
-	}
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+  public Setor getSetor() {
+    return setor;
+  }
 
-	public String getNome() {
-		return nome;
-	}
+  public void setSetor(Setor setor) {
+    this.setor = setor;
+  }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+  public Double getSalario() {
+    return salario;
+  }
 
-	public Setor getSetor() {
-		return setor;
-	}
+  public void setSalario(Double salario) {
+    this.salario = salario;
+  }
 
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
+  public String getEmail() {
+    return email;
+  }
 
-	public Double getSalario() {
-		return salario;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public void setSalario(Double salario) {
-		this.salario = salario;
-	}
+  public Integer getIdade() {
+    return idade;
+  }
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-
+  public void setIdade(Integer idade) {
+    this.idade = idade;
+  }
 }
